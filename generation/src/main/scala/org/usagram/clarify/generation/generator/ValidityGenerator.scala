@@ -22,7 +22,13 @@ class ValidityGenerator(packageName: String) extends Generator {
       |      resolve(${__(1) to n member "value"})
       |    }
       |    else {
-      |      throw new Exception("")
+      |      // TODO: to properly
+      |      val messages = for {
+      |        value <- invalidValues
+      |        error <- value.errors
+      |      } yield error.message(value.tags)
+      |
+      |      throw new Exception(messages.mkString(", "))
       |    }
       |}
     """.strip

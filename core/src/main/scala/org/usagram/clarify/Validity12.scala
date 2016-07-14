@@ -11,6 +11,12 @@ case class Validity12[+V1, +V2, +V3, +V4, +V5, +V6, +V7, +V8, +V9, +V10, +V11, +
       resolve(_1.value, _2.value, _3.value, _4.value, _5.value, _6.value, _7.value, _8.value, _9.value, _10.value, _11.value, _12.value)
     }
     else {
-      throw new Exception("")
+      // TODO: to properly
+      val messages = for {
+        value <- invalidValues
+        error <- value.errors
+      } yield error.message(value.tags)
+
+      throw new Exception(messages.mkString(", "))
     }
 }
