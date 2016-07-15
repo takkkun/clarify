@@ -8,10 +8,10 @@ object ClarifyBuild extends Build {
   import scalariform.formatter.preferences._
 
   lazy val clarifySettings = Defaults.coreDefaultSettings ++ Seq(
-    version := "0.0.1",
+    version := "0.0.2",
     organization := "org.usagram",
     crossScalaVersions := Seq("2.11.0", "2.10.0"),
-    scalaVersion <<= (crossScalaVersions) { versions => versions.head },
+    scalaVersion <<= crossScalaVersions { versions => versions.head },
     scalacOptions ++= Seq("-target:jvm-1.7", "-unchecked", "-deprecation", "-Yinline-warnings", "-Xcheckinit", "-encoding", "utf8", "-feature"),
     javacOptions ++= Seq("-target", "1.7", "-source", "1.7", "-Xlint:deprecation"),
     publishTo := Some(Resolver.file("fie", file(".")))
