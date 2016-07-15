@@ -11,12 +11,6 @@ case class Validity1[+V1](_1: Definite[V1])
       resolve(_1.value)
     }
     else {
-      // TODO: to properly
-      val messages = for {
-        value <- invalidValues
-        error <- value.errors
-      } yield error.message(value.tags)
-
-      throw new Exception(messages.mkString(", "))
+      throw InvalidValueException.fromInvalidValues(invalidValues)
     }
 }

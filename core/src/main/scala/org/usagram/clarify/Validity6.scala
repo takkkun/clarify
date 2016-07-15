@@ -11,12 +11,6 @@ case class Validity6[+V1, +V2, +V3, +V4, +V5, +V6](_1: Definite[V1], _2: Definit
       resolve(_1.value, _2.value, _3.value, _4.value, _5.value, _6.value)
     }
     else {
-      // TODO: to properly
-      val messages = for {
-        value <- invalidValues
-        error <- value.errors
-      } yield error.message(value.tags)
-
-      throw new Exception(messages.mkString(", "))
+      throw InvalidValueException.fromInvalidValues(invalidValues)
     }
 }
