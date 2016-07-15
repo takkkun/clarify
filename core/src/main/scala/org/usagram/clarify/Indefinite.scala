@@ -5,13 +5,7 @@ import org.usagram.clarify.error.Error
 final class Indefinite[+V] private (value: V, val tags: Tags) {
   def validateWith(validateValue: V => Iterable[Error]): Definite[V] = {
     val errors = validateValue(value)
-
-    if (errors.isEmpty) {
-      valid
-    }
-    else {
-      invalid(errors)
-    }
+    if (errors.isEmpty) valid else invalid(errors)
   }
 
   private[clarify] def valid: Valid[V] = Valid(value, tags)
