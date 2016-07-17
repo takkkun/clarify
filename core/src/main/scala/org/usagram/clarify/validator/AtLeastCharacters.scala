@@ -1,5 +1,6 @@
 package org.usagram.clarify.validator
 
+import org.usagram.clarify.Indefinite
 import org.usagram.clarify.error.TooShortString
 
 class AtLeastCharacters(limit: Int) extends Validator[String] {
@@ -10,5 +11,12 @@ class AtLeastCharacters(limit: Int) extends Validator[String] {
 }
 
 object AtLeastCharacters {
-  def apply(limit: Int): AtLeastCharacters = new AtLeastCharacters(limit)
+  val validator = {
+    val limit: Validator[Int] = GreaterThanOrEqualTo.one
+
+    limit
+  }
+
+  def apply(limit: Int): AtLeastCharacters =
+    validator(Indefinite(limit) label "limit").resolve(new AtLeastCharacters(_))
 }

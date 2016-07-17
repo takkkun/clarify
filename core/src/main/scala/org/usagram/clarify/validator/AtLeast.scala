@@ -8,6 +8,9 @@ class AtLeast[-V](limit: Int) extends Validator[Iterable[V]] {
     failIf(value.size < limit) {
       RequireAtLeast(limit)
     }
+
+  def characters: AtLeastCharacters =
+    AtLeastCharacters(limit)
 }
 
 object AtLeast {
