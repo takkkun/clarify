@@ -8,7 +8,7 @@ object ClarifyBuild extends Build {
   import scalariform.formatter.preferences._
 
   lazy val clarifySettings = Defaults.coreDefaultSettings ++ Seq(
-    version := "0.0.2",
+    version := "0.0.3",
     organization := "org.usagram",
     crossScalaVersions := Seq("2.11.0", "2.10.0"),
     scalaVersion <<= crossScalaVersions { versions => versions.head },
