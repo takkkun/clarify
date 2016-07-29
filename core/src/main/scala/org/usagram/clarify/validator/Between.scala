@@ -6,7 +6,7 @@ import scala.collection.immutable.NumericRange
 
 class Between[-V](lower: V, upper: V, isInclusive: Boolean)(implicit ordering: Ordering[V]) extends Validator[V] {
   def validate(value: V) =
-    failIf(!lowerSatisfied(value) || upperSatisfied(value)) {
+    failIf(!lowerSatisfied(value) || !upperSatisfied(value)) {
       OutOfRange(lower, upper, isInclusive)
     }
 
