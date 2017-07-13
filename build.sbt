@@ -10,7 +10,7 @@ import com.typesafe.sbt.pgp.PgpKeys._
 val clarifySettings = Defaults.coreDefaultSettings ++ Seq(
   version := "0.0.4",
   organization := "org.usagram",
-  crossScalaVersions := Seq("2.12.2", "2.11.0", "2.10.0"),
+  crossScalaVersions := Seq("2.12.2", "2.11.8"),
   scalaVersion := crossScalaVersions.value.head,
   scalacOptions ++= Seq("-target:jvm-1.8", "-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-feature", "-Ywarn-unused-import"),
   javacOptions ++= Seq("-target", "1.8", "-source", "1.8", "-Xlint:deprecation"),
