@@ -10,10 +10,10 @@ object ClarifyBuild extends Build {
   lazy val clarifySettings = Defaults.coreDefaultSettings ++ Seq(
     version := "0.0.4",
     organization := "org.usagram",
-    crossScalaVersions := Seq("2.11.0", "2.10.0"),
+    crossScalaVersions := Seq("2.12.2", "2.11.0", "2.10.0"),
     scalaVersion <<= crossScalaVersions { versions => versions.head },
-    scalacOptions ++= Seq("-target:jvm-1.7", "-unchecked", "-deprecation", "-Yinline-warnings", "-Xcheckinit", "-encoding", "utf8", "-feature"),
-    javacOptions ++= Seq("-target", "1.7", "-source", "1.7", "-Xlint:deprecation"),
+    scalacOptions ++= Seq("-target:jvm-1.8", "-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-feature", "-Ywarn-unused-import"),
+    javacOptions ++= Seq("-target", "1.8", "-source", "1.8", "-Xlint:deprecation"),
     publishTo := Some(Resolver.file("fie", file(".")))
   ) ++ scalariformSettings ++ Seq(
     preferences := preferences.value
