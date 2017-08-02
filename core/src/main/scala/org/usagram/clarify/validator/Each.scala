@@ -1,22 +1,20 @@
 package org.usagram.clarify.validator
 
-import org.usagram.clarify.error.ErrorAt
+import org.usagram.clarify.error.{ Errors, Error }
 
-class Each[-V](validator: Validator[V]) extends Validator[Iterable[V]] {
-  def validate(values: Iterable[V]) =
-    values.zipWithIndex.flatMap { elem =>
-      val (value, index) = elem
-      val errors = validator.validate(value)
+trait Each[-V <: Iterable[_], K] extends Validator[V] {
+  def validate(values: V) = {
+    val errors = validateEach(values)
+    if (errors.isEmpty) pass else fail(Errors(errors))
+  }
 
-      if (errors.isEmpty) {
-        None
-      }
-      else {
-        Some(ErrorAt(index, errors))
-      }
-    }
+  protected def validateEach(values: V): Map[K, Error]
 }
 
 object Each {
-  def apply[V](validator: Validator[V]): Each[V] = new Each(validator)
+  def seq[V](validator: Validator[V]): Each[Seq[V], Int] = EachOfSeq(validator)
+
+  def set[V](validator: Validator[V]): Each[Set[V], V] = EachOfSet(validator)
+
+  def map[V, K](validator: Validator[V]): Each[Map[K, V], K] = EachOfMap(validator)
 }
