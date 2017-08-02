@@ -15,7 +15,7 @@ class ValidityGenerator(packageName: String) extends Generator {
       |
       |case class ${Validity(n)}[${V(1) to n prefix "+"}](${__Arg(1) to n})
       |    extends Validity with ${Product(n)}[${Definite(1) to n}] {
-      |  val values = Iterable(${__(1) to n})
+      |  val values = Seq(${__(1) to n})
       |
       |  def resolve[R](resolve: ${V(1) to n enclose} => R): R =
       |    if (isValid) {
