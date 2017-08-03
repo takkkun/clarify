@@ -14,7 +14,7 @@ final case class Valid[+V](value: V, tags: Tags) extends Definite[V] {
   val isValid = true
 }
 
-final case class Invalid[+V](value: V, tags: Tags, errors: Iterable[Error]) extends Definite[V] {
+final case class Invalid[+V](value: V, tags: Tags, error: Error) extends Definite[V] {
   val isValid = false
 }
 

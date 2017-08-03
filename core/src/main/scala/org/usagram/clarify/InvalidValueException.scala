@@ -4,10 +4,9 @@ class InvalidValueException(message: String, val invalidValues: Iterable[Invalid
 
 object InvalidValueException {
   def fromInvalidValues(invalidValues: Iterable[Invalid[Any]]): InvalidValueException = {
-    val messages = for {
-      invalidValue <- invalidValues
-      error <- invalidValue.errors
-    } yield error.message(invalidValue.tags)
+    val messages = invalidValues.map { invalidValue =>
+      invalidValue.error.message(invalidValue.tags)
+    }
 
     new InvalidValueException(messages.mkString(", "), invalidValues)
   }

@@ -3,18 +3,18 @@ package org.usagram.clarify.validator
 import org.usagram.clarify.error.Error
 
 trait Validator[-V] {
-  def validate(value: V): Iterable[Error]
+  def validate(value: V): Option[Error]
 
-  def pass: Iterable[Error] =
-    Iterable.empty
+  def pass: Option[Error] =
+    None
 
-  def fail: Iterable[Error] =
+  def fail: Option[Error] =
     fail(Error)
 
-  def fail(error: Error): Iterable[Error] =
-    Iterable(error)
+  def fail(error: Error): Option[Error] =
+    Some(error)
 
-  def failIf(condition: => Boolean)(error: => Error): Iterable[Error] =
+  def failIf(condition: => Boolean)(error: => Error): Option[Error] =
     if (condition) {
       fail(error)
     }
@@ -24,14 +24,7 @@ trait Validator[-V] {
 
   def &&[V1 <: V](that: Validator[V1]): Validator[V1] =
     Validator { value =>
-      val thisErrors = validate(value)
-
-      if (thisErrors.isEmpty) {
-        that.validate(value)
-      }
-      else {
-        thisErrors
-      }
+      validate(value) orElse that.validate(value)
     }
 
   def /[V1 <: V](that: Validator[V1]): Validator[V1] =
@@ -51,7 +44,7 @@ trait Validator[-V] {
 }
 
 object Validator {
-  def apply[V](validateValue: V => Iterable[Error]): Validator[V] = validateValue(_)
+  def apply[V](validateValue: V => Option[Error]): Validator[V] = validateValue(_)
 
   import scala.language.implicitConversions
   import org.usagram.clarify.{ ComplexValidator1, Validity1 }
