@@ -3,7 +3,9 @@ package org.usagram.clarify
 import org.usagram.clarify.error.Error
 
 sealed trait Definite[+V] {
-  val value: V
+  def value: V
+
+  def tags: Tags
 
   def isValid: Boolean
 
