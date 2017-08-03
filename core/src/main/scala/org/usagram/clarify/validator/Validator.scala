@@ -44,7 +44,10 @@ trait Validator[-V] {
 }
 
 object Validator {
-  def apply[V](validateValue: V => Option[Error]): Validator[V] = validateValue(_)
+  def apply[V](validateValue: V => Option[Error]): Validator[V] =
+    new Validator[V] {
+      def validate(value: V) = validateValue(value)
+    }
 
   import scala.language.implicitConversions
   import org.usagram.clarify.{ ComplexValidator1, Validity1 }
