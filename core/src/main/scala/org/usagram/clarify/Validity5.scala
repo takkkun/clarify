@@ -11,6 +11,6 @@ case class Validity5[+V1, +V2, +V3, +V4, +V5](_1: Definite[V1], _2: Definite[V2]
       resolve(_1.value, _2.value, _3.value, _4.value, _5.value)
     }
     else {
-      throw InvalidValueException.fromInvalidValues(invalidValues)
+      throw new InvalidValueException(invalidValues)
     }
 }

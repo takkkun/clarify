@@ -11,6 +11,6 @@ case class Validity3[+V1, +V2, +V3](_1: Definite[V1], _2: Definite[V2], _3: Defi
       resolve(_1.value, _2.value, _3.value)
     }
     else {
-      throw InvalidValueException.fromInvalidValues(invalidValues)
+      throw new InvalidValueException(invalidValues)
     }
 }

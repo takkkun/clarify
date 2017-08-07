@@ -22,7 +22,7 @@ class ValidityGenerator(packageName: String) extends Generator {
       |      resolve(${__(1) to n member "value"})
       |    }
       |    else {
-      |      throw InvalidValueException.fromInvalidValues(invalidValues)
+      |      throw new InvalidValueException(invalidValues)
       |    }
       |}
     """.strip

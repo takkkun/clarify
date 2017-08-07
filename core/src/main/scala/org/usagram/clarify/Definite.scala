@@ -18,6 +18,8 @@ final case class Valid[+V](value: V, tags: Tags) extends Definite[V] {
 
 final case class Invalid[+V](value: V, tags: Tags, error: Error) extends Definite[V] {
   val isValid = false
+
+  def message: String = error.message(tags)
 }
 
 final case class Unknown[+V](value: V, tags: Tags) extends Definite[V] {

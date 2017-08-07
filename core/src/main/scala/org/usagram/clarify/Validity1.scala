@@ -11,6 +11,6 @@ case class Validity1[+V1](_1: Definite[V1])
       resolve(_1.value)
     }
     else {
-      throw InvalidValueException.fromInvalidValues(invalidValues)
+      throw new InvalidValueException(invalidValues)
     }
 }

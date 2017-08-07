@@ -1,13 +1,6 @@
 package org.usagram.clarify
 
-class InvalidValueException(message: String, val invalidValues: Iterable[Invalid[Any]]) extends Exception(message)
-
-object InvalidValueException {
-  def fromInvalidValues(invalidValues: Iterable[Invalid[Any]]): InvalidValueException = {
-    val messages = invalidValues.map { invalidValue =>
-      invalidValue.error.message(invalidValue.tags)
-    }
-
-    new InvalidValueException(messages.mkString(", "), invalidValues)
-  }
+class InvalidValueException(val invalidValues: Seq[Invalid[Any]], message: String) extends Exception(message) {
+  def this(invalidValues: Seq[Invalid[Any]]) =
+    this(invalidValues, invalidValues.map(_.message).mkString(", "))
 }

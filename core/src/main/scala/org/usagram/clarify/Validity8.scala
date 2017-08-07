@@ -11,6 +11,6 @@ case class Validity8[+V1, +V2, +V3, +V4, +V5, +V6, +V7, +V8](_1: Definite[V1], _
       resolve(_1.value, _2.value, _3.value, _4.value, _5.value, _6.value, _7.value, _8.value)
     }
     else {
-      throw InvalidValueException.fromInvalidValues(invalidValues)
+      throw new InvalidValueException(invalidValues)
     }
 }
