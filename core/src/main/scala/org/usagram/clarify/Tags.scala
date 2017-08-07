@@ -1,13 +1,13 @@
 package org.usagram.clarify
 
-class Tags private (val label: Option[String] = None) {
+class Tags private (val label: Option[String]) {
   def copy(label: Indefinite[Option[String]] = Indefinite(this.label)): Tags =
     Tags(label)
 }
 
 object Tags {
   def empty: Tags =
-    new Tags()
+    new Tags(None)
 
   val validator = {
     import org.usagram.clarify.validator._
