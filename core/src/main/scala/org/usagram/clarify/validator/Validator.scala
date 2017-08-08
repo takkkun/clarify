@@ -5,23 +5,6 @@ import org.usagram.clarify.error.Error
 trait Validator[-V] {
   def validate(value: V): Option[Error]
 
-  def pass: Option[Error] =
-    None
-
-  def fail: Option[Error] =
-    fail(Error)
-
-  def fail(error: Error): Option[Error] =
-    Some(error)
-
-  def failIf(condition: => Boolean)(error: => Error): Option[Error] =
-    if (condition) {
-      fail(error)
-    }
-    else {
-      pass
-    }
-
   def &&[V1 <: V](that: Validator[V1]): Validator[V1] =
     Validator { value =>
       validate(value) orElse that.validate(value)
@@ -41,6 +24,23 @@ trait Validator[-V] {
     }
 
   def \[V1 <: V](that: Validator[V1]): Validator[V1] = that / this
+
+  protected def pass: Option[Error] =
+    None
+
+  protected def fail: Option[Error] =
+    fail(Error)
+
+  protected def fail(error: Error): Option[Error] =
+    Some(error)
+
+  protected def failIf(condition: => Boolean)(error: => Error): Option[Error] =
+    if (condition) {
+      fail(error)
+    }
+    else {
+      pass
+    }
 }
 
 object Validator {

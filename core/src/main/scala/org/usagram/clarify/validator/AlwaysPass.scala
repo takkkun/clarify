@@ -5,5 +5,5 @@ class AlwaysPass[-V]() extends Validator[V] {
 }
 
 object AlwaysPass extends AlwaysPass[Any] {
-  def apply[V]: AlwaysPass[V] = AlwaysPass
+  def apply[V](): AlwaysPass[V] = AlwaysPass
 }

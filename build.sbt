@@ -33,7 +33,11 @@ val doNotPublish = Seq(
 val core = Project(
   id = "clarify",
   base = file("core"),
-  settings = clarifySettings
+  settings = clarifySettings ++ Seq(
+    libraryDependencies ++= Seq(
+      "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+    )
+  )
 )
 
 val generation = Project(

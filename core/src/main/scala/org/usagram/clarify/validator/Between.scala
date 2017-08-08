@@ -18,11 +18,15 @@ class Between[-V](lower: V, upper: V, isInclusive: Boolean)(implicit ordering: O
 }
 
 object Between {
-  def apply(range: Range): Between[Int] = new Between(range.start, range.end, range.isInclusive)
+  def apply(range: Range): Between[Int] =
+    new Between(range.start, range.end, range.isInclusive)
 
   def apply[V](range: NumericRange[V])(implicit ordering: Ordering[V]): Between[V] =
     new Between(range.start, range.end, range.isInclusive)
 
-  def apply[V](range: Range.Partial[V, NumericRange[V]])(implicit ordering: Ordering[V], numeric: Numeric[V]): Between[V] =
-    apply(range.by(numeric.one))
+  def inclusively[V](lower: V, upper: V)(implicit ordering: Ordering[V]): Between[V] =
+    new Between(lower, upper, true)
+
+  def exclusively[V](lower: V, upper: V)(implicit ordering: Ordering[V]): Between[V] =
+    new Between(lower, upper, false)
 }

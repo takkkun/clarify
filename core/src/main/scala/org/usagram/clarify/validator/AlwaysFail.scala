@@ -5,5 +5,5 @@ class AlwaysFail[-V]() extends Validator[V] {
 }
 
 object AlwaysFail extends AlwaysFail[Any] {
-  def apply[V]: AlwaysFail[V] = AlwaysFail
+  def apply[V](): AlwaysFail[V] = AlwaysFail
 }

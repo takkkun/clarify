@@ -9,4 +9,6 @@ class NotBlank() extends Validator[String] {
     }
 }
 
-object NotBlank extends NotBlank
+object NotBlank extends NotBlank {
+  def apply(): NotBlank = NotBlank
+}
