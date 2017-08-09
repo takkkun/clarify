@@ -12,9 +12,9 @@ trait Each[-V <: Iterable[_], K] extends Validator[V] {
 }
 
 object Each {
-  def seq[V](validator: Validator[V]): Each[Seq[V], Int] = EachOfSeq(validator)
+  def ofSeq[V](validator: Validator[V]): Each[Seq[V], Int] = EachOfSeq(validator)
 
-  def set[V](validator: Validator[V]): Each[Set[V], V] = EachOfSet(validator)
+  def ofSet[V](validator: Validator[V]): Each[Set[V], V] = EachOfSet(validator)
 
-  def map[V, K](validator: Validator[V]): Each[Map[K, V], K] = EachOfMap(validator)
+  def ofMap[V, K](validator: Validator[V]): Each[Map[K, V], K] = EachOfMap(validator)
 }
