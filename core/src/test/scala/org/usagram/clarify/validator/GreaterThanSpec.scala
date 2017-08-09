@@ -18,14 +18,14 @@ class GreaterThanSpec extends FunSpec {
 
   describe(".zero") {
     it("returns a GreaterThan with that = 0") {
-      val validator = GreaterThan.zero
+      val validator = GreaterThan.zero[Int]
       val error = validator.validate(0)
       error.value.asInstanceOf[ShouldBeGreaterThan[Int]].value should be(0)
     }
   }
 
   describe("#validate") {
-    val validator = GreaterThan.zero
+    val validator = GreaterThan.zero[Int]
 
     describe("when be greater than that") {
       it("returns no errors") {
@@ -45,7 +45,7 @@ class GreaterThanSpec extends FunSpec {
 
   describe("#orEqual") {
     it("returns a GreaterThanOrEqualTo with that") {
-      val validator = GreaterThan.zero.orEqual
+      val validator = GreaterThan.zero[Int].orEqual
       val error = validator.validate(-1)
       error.value.asInstanceOf[ShouldBeGreaterThanOrEqualTo[Int]].value should be(0)
     }
