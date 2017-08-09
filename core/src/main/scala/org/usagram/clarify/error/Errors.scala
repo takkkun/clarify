@@ -1,25 +1,32 @@
 package org.usagram.clarify.error
 
-import org.usagram.clarify.Tags
-import org.usagram.clarify.Indefinite
+import org.usagram.clarify.{ Tags, Indefinite }
+
+import scala.util.matching.Regex
 
 case class Errors[K](errors: Map[K, Error]) extends Error {
   def message(tags: Tags) = {
     val label = s"${tags.label getOrElse "(no label)"}"
     val unit = if (errors.size > 1) "errors" else "error"
-    s"$label has ${errors.size} $unit: ${format(errors)}"
+    val detail = Errors.messages(errors).mkString(", ")
+    s"$label has ${errors.size} $unit: $detail"
   }
 
-  private def format(errors: Map[K, Error]): String = {
-    val messages = errors.map {
+}
+
+object Errors {
+  private val replacements = Map(
+    "\\" -> "\\\\\\\\",
+    "'" -> "\\\\'"
+  )
+
+  private val regex = new Regex(s"[${replacements.keys.map(Regex.quote).mkString}]")
+
+  def messages[K](errors: Map[K, Error]): Iterable[String] =
+    errors.map {
       case (key, error) =>
-        val tags = Tags(Indefinite(Some(s"value of $key")))
+        val escapedKey = regex.replaceAllIn(key.toString, m => replacements(m.matched))
+        val tags = Tags(Indefinite(Some(s"value of '$escapedKey'")))
         error.message(tags)
     }
-
-    val init = messages.init
-    val last = messages.last
-
-    if (init.isEmpty) last else s"${init.mkString(", ")} and $last"
-  }
 }
